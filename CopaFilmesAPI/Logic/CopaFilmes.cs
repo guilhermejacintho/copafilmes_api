@@ -8,7 +8,7 @@ namespace CopaFilmesAPI.Logic
 {
     public class CopaFilmes : ICopaFilmes
     {
-        RetornoDTO<MovieDTO> ICopaFilmes.GeraCopa(List<MovieDTO> filmesSelecionados)
+        public RetornoDTO<MovieDTO> GeraCopa(List<MovieDTO> filmesSelecionados)
         {
             RetornoDTO<MovieDTO> validacao = ValidaEntrada(filmesSelecionados);
             if (!validacao.Success) return validacao;
@@ -65,9 +65,14 @@ namespace CopaFilmesAPI.Logic
 
         private RetornoDTO<MovieDTO> ValidaEntrada(List<MovieDTO> filmesSelecionados)
         {
-            RetornoDTO<MovieDTO> validacao = new RetornoDTO<MovieDTO>();
+            if (filmesSelecionados == null) return new RetornoDTO<MovieDTO>() { MainException = new Exception("Lista de Filmes recebida é nula") };
 
-            return validacao;
+            if (filmesSelecionados.Count != 8) return new RetornoDTO<MovieDTO>() { MainException = new Exception("Lista de Filmes possui um valor diferente de 8.") };
+
+            if (filmesSelecionados.Where(c => c.Titulo == null).Count() > 0) return new RetornoDTO<MovieDTO>() { MainException = new Exception("Existem títulos vazios na lista de filmes.") };
+
+            return new RetornoDTO<MovieDTO>();
+
         }
 
     }

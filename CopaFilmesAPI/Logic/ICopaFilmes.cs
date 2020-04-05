@@ -8,6 +8,6 @@ namespace CopaFilmesAPI.Logic
 {
     public interface ICopaFilmes
     {
-        RetornoDTO<MovieDTO> GeraCopa(List<MovieDTO> filmesSelecionados);
+        public RetornoDTO<MovieDTO> GeraCopa(List<MovieDTO> filmesSelecionados);
     }
 }
